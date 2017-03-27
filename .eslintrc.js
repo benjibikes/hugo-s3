@@ -5,7 +5,8 @@ module.exports = {
         "import"
     ],
     "rules": {
-        "import/no-commonjs": 1,
+        "import/no-commonjs": 0,
+        "fp/no-mutation": ["error", {"commonjs": true}],
 
         // spacing -- https://gist.githubusercontent.com/alexnm/402c2355240808177c7c9b9c83bff0a5/raw/6de960abec60741eba4705323d02ddb021ae9580/eslintrc.js
         // "space-in-parens": [ 2, "always" ],
