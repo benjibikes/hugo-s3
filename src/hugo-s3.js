@@ -10,14 +10,14 @@ const minimist = require("minimist")
     , AWS = require("aws-sdk")
 
 const policy = require("./policy.js")
+    , deploy = require("./deploy.js")
 
 function run(processArgv) {
   const argv = minimist(processArgv.slice(2));
   const s3 = new AWS.S3({ region: "us-east-1" });
-  const bucket = "lifeinsiberia.com";
-  const setPolicy = policy(s3, bucket);
-  // const sendFiles = sendFiles(s3,bucket);
-  return Promise.all([ setPolicy, /*sendFiles*/ ]).then(response => { return console.log(response) });
+  const bucket = "";
+  const directory = process.cwd() + "/public/";
+  return Promise.all([ policy(s3, bucket), deploy(s3, bucket, directory) ]).then(response => { return console.log(response) });
 }
 
 process.title = "hugo-s3";

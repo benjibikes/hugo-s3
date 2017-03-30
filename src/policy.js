@@ -1,8 +1,11 @@
 module.exports = setNewPolicy;
 
 function setNewPolicy(s3, bucket) {
-  const policyGot = getPolicy(s3, bucket).then(policy => { return policy }).catch(err => { return checkNoPolicy(err) });
-  const policySet = policyGot.then(policy => { return createAndSetPolicy(policy, s3, bucket) });
+  const policyGot = getPolicy(s3, bucket)
+    .then(policy => { return policy })
+    .catch(err => { return checkNoPolicy(err) });
+  const policySet = policyGot
+    .then(policy => { return createAndSetPolicy(policy, s3, bucket) });
 
   return policySet;
 }

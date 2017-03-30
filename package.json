@@ -4,7 +4,7 @@
   "description": "A minimal tool to deploy hugo sites to s3.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "go": "node hugo-s3.js"
+    "go": "node ./src/hugo-s3.js"
   },
   "repository": {
     "type": "git",

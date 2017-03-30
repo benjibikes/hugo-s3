@@ -14,5 +14,6 @@ On build of a Hugo site, a `public/` directory is created which holds all of the
 `hugo-s3`, when run in the root directory, will crawl this `public/` and push it to your s3 bucket, with permissions already configured.
 
 ## Future goals
- - Output the s3 url in the command line
+ - Output the s3 website url in the command line
  - Compress and gzip all files
+ - Create bucket if one does not exist already
