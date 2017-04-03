@@ -1,6 +1,7 @@
 const fs = require("fs")
     , path = require("path")
     , crc = require("crc").crc32
+    , utils = require("./utils.js")
 
 module.exports = deploy;
 
@@ -46,10 +47,6 @@ function writeCacheFile(s3, bucket, file, filePath, directory, cacheJson) {
 }
 
 function deployFile(s3, bucket, projectPath, file) {
-  const params = {
-    Bucket: bucket,
-    Body: file,
-    Key: projectPath
-  }
+  const params = utils(file, projectPath, bucket);
   return s3.putObject(params).promise();
 }

@@ -15,7 +15,7 @@ const policy = require("./policy.js")
 function run(processArgv) {
   const argv = minimist(processArgv.slice(2));
   const s3 = new AWS.S3({ region: "us-east-1" });
-  const bucket = "lifeinsiberia.com";
+  const bucket = "willitwork.com";
   const directory = process.cwd() + "/public/";
   return Promise.all([ policy(s3, bucket), deploy(s3, bucket, directory) ]).then(response => { return console.log(response) });
 }

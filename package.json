@@ -2,6 +2,7 @@
   "name": "hugo-s3",
   "version": "0.0.1",
   "description": "A minimal tool to deploy hugo sites to s3.",
+  "bin": "./src/hugo-s3",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "go": "node ./src/hugo-s3.js"
