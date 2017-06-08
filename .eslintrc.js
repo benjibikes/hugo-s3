@@ -4,6 +4,9 @@ module.exports = {
     "plugins": [
         "import"
     ],
+    "parserOptions": {
+      "ecmaVersion": 8
+    },
     "rules": {
         "import/no-commonjs": 0,
         "fp/no-mutation": ["error", {"commonjs": true}],

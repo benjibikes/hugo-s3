@@ -1,26 +1,31 @@
 module.exports = setNewPolicy;
 
-function setNewPolicy(s3, bucket) {
-  const policyGot = getPolicy(s3, bucket)
-    .then(policy => { return policy })
-    .catch(err => { return checkNoPolicy(err) });
-  const policySet = policyGot
-    .then(policy => { return createAndSetPolicy(policy, s3, bucket) });
+async function setNewPolicy(s3, bucket) {
+  const policyGot = await getPolicy(s3, bucket);
+  const policySet = await createAndSetPolicy(policyGot, s3, bucket);
+  // console.log(policySet);
 
   return policySet;
 }
 
-function checkNoPolicy (err) {
+function checkNoPolicy(err) {
   return err.code === "NoSuchBucketPolicy" ? {} : err;
 }
 
 function getPolicy(s3, bucket) {
-  return s3.getBucketPolicy({ Bucket: bucket }).promise();
+  return s3.getBucketPolicy({ Bucket: bucket }).promise()
+    .catch((err) => { return checkNoPolicy(err) });
 }
 
 function createAndSetPolicy(currentPolicy, s3, bucket) {
   const policy = assignPublicReadToPolicy(currentPolicy, bucket);
-  return s3.putBucketPolicy({ Bucket: bucket, Policy: JSON.stringify(policy) }).promise();
+  return s3.putBucketPolicy({ Bucket: bucket, Policy: JSON.stringify(policy) }).promise()
+    .then((res) => {
+      return console.log(res);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
 }
 
 function assignPublicReadToPolicy(currentPolicy, bucket) {

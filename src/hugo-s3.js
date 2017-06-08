@@ -12,12 +12,14 @@ const minimist = require("minimist")
 const policy = require("./policy.js")
     , deploy = require("./deploy.js")
 
-function run(processArgv) {
+async function run(processArgv) {
   const argv = minimist(processArgv.slice(2));
   const s3 = new AWS.S3({ region: "us-east-1" });
   const bucket = "willitwork.com";
   const directory = process.cwd() + "/public/";
-  return Promise.all([ policy(s3, bucket), deploy(s3, bucket, directory) ]).then(response => { return console.log(response) });
+  const [ policySet, deployedFiles ] = await Promise.all([ policy(s3, bucket), deploy(s3, bucket, directory) ]);
+  // console.log(policySet, deployedFiles);
+  return [ policySet, deployedFiles ];
 }
 
 process.title = "hugo-s3";
